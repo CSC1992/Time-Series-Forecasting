@@ -56,6 +56,7 @@ Exponential smoothing|32.776729|25.498562|1166.163153|
 We can check in this example that XG Boosting had the best performance of the three models.
 
 For this model feature engineering was essential to produce good results. Always check if your features have an importance for the model, if not, remove them, or create new ones.
+
 All the details about the code used are in the Jupyter Notebook ;)
 
 In the next part of this project I will implement the final model in Power BI in order for business users to have an easy way to check the predictions of our model.
