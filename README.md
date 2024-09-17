@@ -1,4 +1,4 @@
-# Time-Series-Forecasting with Python and Power BI Integration
+# Time Series Forecasting with Python and Power BI Integration
 
 ### Table of Contents
 
