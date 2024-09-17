@@ -76,9 +76,11 @@ All the details about the code used are in the Jupyter Notebook ;)
 
 # Power BI Integration 
 
-[Download Vet Group - forecast.pbix](Vet%20Group%20-%20forecast.pbix) click in download raw in the top right corner
+[Download Vet Group - forecast.pbix](Vet%20Group%20-%20forecast.pbix)
 
-This project combines Python and Power Query for time series forecasting. The workflow includes data preprocessing, feature engineering, model training, and forecasting using the **XGBoost** algorithm. The script is designed to work within Power BI by leveraging Python scripts in Power Query.
+The link above will redirect you to another page. Once there, click on Download Raw in the top-right corner to download the file.
+
+This project integrates Python and Power Query for time series forecasting. The workflow encompasses data preprocessing, feature engineering, model training, and forecasting with the XGBoost algorithm. The script is optimized to run within Power BI, utilizing Python scripts embedded in Power Query.
 
 ## Final Model Integration in Power Query
 
@@ -176,10 +178,8 @@ The PBI report is divided into three pages:
 
 ![PBI - page 1](PBI%20-%20page%201.gif)
    
-   This page is dedicated to statistical information about the distribution of the data.
-   The average, Quantile 99, Quantile 1 and IQR are also show and fully dynamic depending on the view selected.
-   Field Parameters are used to control the x-axis of the graph.
-   The y-axis (minimum and maximum) is also dinamic depending on the field parameter view.
+This page provides statistical insights into the data distribution. Metrics such as the average, 99th quantile, 1st quantile, and interquartile range (IQR) are dynamically updated based on the selected view.
+Field Parameters are used to control the x-axis of the graph, while the y-axis (minimum and maximum values) adjusts dynamically depending on the selected field parameter view.
    
  ```DAX
 format_max_axis = 
@@ -239,13 +239,11 @@ RETURN
 
 ![PBI - page 2](PBI%20-%20page%202.gif)
 
-In this page we try to understand if the work force available for the vet clinics are suficient according to the demand for actuals and forecasted values.
-There are 5 main metrics used in this page.
+On this page, we aim to assess whether the available workforce in the vet clinics is sufficient to meet the demand, based on both actual and forecasted values. Five key metrics are used to evaluate this.
 
 1- Total_monthly volume
 
-This code computes the total treatment volume per month by summing the treatment time and man-time for all treatments, then averaging the monthly totals.
-The result is a measure of workload in minutes per month, combining the actual treatment time and the time between treatments.
+This metric calculates the total treatment volume per month by summing the treatment time and man-time for all treatments, then averaging the monthly totals. The result provides a measure of the workload in minutes per month, accounting for both the actual treatment time and the time between treatments.
 
 Key Variables:
 vet_treatments[Avg treatment time in minutes]: The average time spent on a single treatment.
@@ -269,7 +267,7 @@ Total_monthly volume=
 
 2- Needed work units
 
-Calculates how many work units (or full-time equivalent staff members) are required to handle the total monthly treatment volume based on available working hours per day (without breaks).
+This metric calculates the number of work units (or full-time equivalent staff members) required to manage the total monthly treatment volume. It is based on the available working hours per day, excluding breaks.
 
  ```DAX
 Needed Work units =
@@ -284,8 +282,9 @@ DIVIDE(ag,total_minutes)
 
 3- FTE's work units
 
-This measure returns the total number of work units available from full-time employees (FTEs) over a given period, such as a month. It also excludes non-working days, like weekends.
-In the FTE Monthly Planner you can find two field parameter that let manipulate the number of FTE and the Man_time ( the rest between treatment in minutes) this give the freedom to explore how this variable affect the remaining capacity.
+This measure calculates the total number of work units provided by full-time employees (FTEs) over a specified period, such as a month. It excludes non-working days, such as weekends.
+
+In the FTE Monthly Planner, you can find two field parameters that allow you to adjust the number of FTEs and the man-time (the time between treatments in minutes). These parameters provide the flexibility to explore how variations in these variables affect the remaining capacity.
 
  ```DAX
 FTE's work units = 
@@ -307,14 +306,14 @@ IF([Needed Work units] = 0, BLANK(),FTE*Days)
 
 5- Average time of treatments in minutes
 
-There are field parameters in this page that lets the graphs in the right corner change to treatments or Average time or to cumulative values.
+On this page, field parameters allow you to adjust the graphs in the top-right corner to display either treatments, average time, or cumulative values.
 
 3. **ABC Classification by Country**
 
 ![PBI - page 3](PBI%20-%20page%203.gif)
 
-This page aims to classify the countriesin order of importance A being the countries with more treatments and C the countries with less treatments.
-This analysis can help business leaders to identify each country to focus or not to focus more resources.
+This page aims to classify countries based on the volume of treatments, with A representing countries with the highest number of treatments and C representing those with the lowest.
+This analysis helps business leaders identify which countries should receive more focus or resources.
 
 To achieve this 4 DAX measures are necessary.
 
@@ -326,7 +325,7 @@ ABC_rank = RANKX(ALL(vet_treatments[Country]),[Number Treatments])
 
 2- Create a running total based on the rank
 
-The measure calculates a cumulative running total of treatments, based on the ranking [ABC_rank]. It allows you to see how the number of treatments accumulates as you move from the top-ranked country to lower-ranked countries.
+The measure calculates a cumulative running total of treatments based on the [ABC_rank] ranking. It shows how the number of treatments accumulates as you progress from the top-ranked countries to those with lower ranks.
 
  ```DAX
 ABC_running_total = 
@@ -343,6 +342,8 @@ RETURN
 The running total aggregates treatments for countries where the rank is less than or equal to the current rank (rk).
 
 3- Create a Percentage of the running total by the total for the selected countries.
+
+This measure calculates the percentage of the cumulative running total relative to the total for the selected countries. It provides insight into the proportion of treatments contributed by each ranked country relative to the overall total.
 
  ```DAX
 ABC_% =
@@ -369,14 +370,4 @@ SWITCH(
     "C"
 )
  ```
-I used also field parameters to give the liberty to the user to choice the optimal point for the classification.
-
-
-
-
-
-
-
-
-
-
+Field parameters are also used to allow users to choose the optimal threshold for classification.
