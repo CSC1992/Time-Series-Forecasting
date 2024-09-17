@@ -80,7 +80,8 @@ This project combines Python and Power Query for time series forecasting. The wo
 
 ## Final Model Integration in Power Query
 
-1. **Data Preprocessing**  
+1. **Data Preprocessing**
+   Use connect to our csv file through power query and then we use python. 
    The data is loaded and preprocessed using **Pandas**. This includes parsing dates and grouping data by the `Date` column to create a time series with business day frequency (`asfreq('B')`).
    In this step we aggregate the values by date to generate the number of prediction as whole.
    
@@ -170,6 +171,8 @@ For more details about the queries check the PBIX file in this repository.
 The PBI report is divided into three pages:
 
 1. **Actuals and Forecast Distribution**
+
+![PBI - page 1](PBI%20-%20page%201.gif)
    
    This page is dedicated to statistical information about the distribution of the data.
    The average, Quantile 99, Quantile 1 and IQR are also show and fully dynamic depending on the view selected.
@@ -231,6 +234,8 @@ RETURN
  ```
    
 2. **FTE Work Capacity**
+
+![PBI - page 2](PBI%20-%20page%202.gif)
 
 In this page we try to understand if the work force available for the vet clinics are suficient according to the demand for actuals and forecasted values.
 There are 5 main metrics used in this page.
@@ -303,6 +308,8 @@ IF([Needed Work units] = 0, BLANK(),FTE*Days)
 There are field parameters in this page that lets the graphs in the right corner change to treatments or Average time or to cumulative values.
 
 3. **ABC Classification by Country**
+
+![PBI - page 3](PBI%20-%20page%203.gif)
 
 This page aims to classify the countriesin order of importance A being the countries with more treatments and C the countries with less treatments.
 This analysis can help business leaders to identify each country to focus or not to focus more resources.
