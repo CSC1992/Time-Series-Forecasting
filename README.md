@@ -74,7 +74,9 @@ For this model feature engineering was essential to produce good results. Always
 
 All the details about the code used are in the Jupyter Notebook ;)
 
-# Power BI Integration
+# Power BI Integration 
+
+[Download Vet Group - forecast.pbix](Vet%20Group%20-%20forecast.pbix)
 
 This project combines Python and Power Query for time series forecasting. The workflow includes data preprocessing, feature engineering, model training, and forecasting using the **XGBoost** algorithm. The script is designed to work within Power BI by leveraging Python scripts in Power Query.
 
